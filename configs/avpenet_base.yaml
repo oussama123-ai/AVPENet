@@ -1,0 +1,65 @@
+# AVPENet Base Configuration
+# Matches the experimental setup described in the paper.
+
+# ──────────────────────────────────────────────────────────
+# Model Architecture
+# ──────────────────────────────────────────────────────────
+model:
+  audio_encoder:   resnet34
+  visual_encoder:  resnet50
+  embed_dim:       512
+  num_heads:       8           # attention heads; d_k = 512/8 = 64
+  dropout_audio:   0.3         # Eq. 3
+  dropout_visual:  0.4         # Eq. 8
+  dropout_ff:      0.3         # Eq. 18
+  head_dropout1:   0.3         # Eq. 21
+  head_dropout2:   0.2         # Eq. 22
+  pretrained:      true        # initialise encoders from ImageNet
+
+# ──────────────────────────────────────────────────────────
+# Data
+# ──────────────────────────────────────────────────────────
+data:
+  root:        "data"
+  train_csv:   "data/train.csv"
+  val_csv:     "data/val.csv"
+  test_csv:    "data/test.csv"
+  num_workers: 4
+
+# ──────────────────────────────────────────────────────────
+# Training Protocol (two-stage, Section "Training Protocol")
+# ──────────────────────────────────────────────────────────
+training:
+  epochs:               100
+  batch_size:           128       # effective (32 per GPU × 4 GPUs)
+  gradient_accumulation: 4        # per-GPU physical batch = 32
+  stage2_start:         31        # epoch at which encoders are unfrozen
+
+  # Learning rates (differential — Section "Training Protocol")
+  lr_encoder:           1.0e-5   # fine-tuning pretrained encoders
+  lr_fusion:            1.0e-4   # fusion + regression head
+  lr_min:               1.0e-6   # cosine annealing floor (Eq. 28)
+
+  weight_decay:         0.01     # AdamW
+  grad_clip:            1.0      # L2 norm clipping
+
+  # Regularisation
+  label_smoothing:      0.1      # Eq. 29
+  mixup:                true     # Eqs. 30–31, alpha=0.2
+
+  # Early stopping
+  early_stopping_patience: 15
+
+# ──────────────────────────────────────────────────────────
+# Loss Function (Eq. 27)
+# ──────────────────────────────────────────────────────────
+loss:
+  alpha:  1.0   # MSE weight
+  beta:   0.3   # ordinal consistency weight
+  gamma:  0.1   # boundary smoothness weight
+  margin: 0.5   # ordinal pair margin
+
+# ──────────────────────────────────────────────────────────
+# Output
+# ──────────────────────────────────────────────────────────
+output_dir: "outputs"

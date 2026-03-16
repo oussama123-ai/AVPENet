@@ -1,0 +1,55 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# PyTorch checkpoints
+outputs/
+checkpoints/
+*.pth
+*.pt
+!avpenet/**/*.pt  # Allow small pretrained markers if any
+
+# Data
+data/audio/
+data/video/
+data/raw_*/
+*.wav
+*.mp4
+*.avi
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+runs/
+logs/
+tensorboard_logs/
+
+# Coverage
+.coverage
+htmlcov/

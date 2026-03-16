@@ -1,0 +1,11 @@
+segment_id,audio_path,video_dir,pain_score,subject_id,age_group
+N001_seg001,audio/N001_seg001.wav,video/N001_seg001,7.14,N001,neonate
+N001_seg002,audio/N001_seg002.wav,video/N001_seg002,8.57,N001,neonate
+N001_seg003,audio/N001_seg003.wav,video/N001_seg003,2.86,N001,neonate
+N002_seg001,audio/N002_seg001.wav,video/N002_seg001,5.71,N002,neonate
+N002_seg002,audio/N002_seg002.wav,video/N002_seg002,4.29,N002,neonate
+A001_seg001,audio/A001_seg001.wav,video/A001_seg001,6.0,A001,adult
+A001_seg002,audio/A001_seg002.wav,video/A001_seg002,7.5,A001,adult
+A001_seg003,audio/A001_seg003.wav,video/A001_seg003,3.0,A001,adult
+A002_seg001,audio/A002_seg001.wav,video/A002_seg001,4.5,A002,adult
+A002_seg002,audio/A002_seg002.wav,video/A002_seg002,1.0,A002,adult
